@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card Catalog</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header>
+  <h1>Card Catalog</h1>
+  <p>Personal trading card inventory + set checklist starter.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>API Settings</h2>
+    <label>API Base URL
+      <input id="apiBase" placeholder="https://your-api.execute-api.us-east-1.amazonaws.com" />
+    </label>
+    <button id="saveApiBase">Save API URL</button>
+    <span id="apiStatus"></span>
+  </section>
+
+  <section class="grid">
+    <form id="setForm" class="panel">
+      <h2>Add Set</h2>
+      <input name="name" placeholder="2003-04 Upper Deck Finite" required />
+      <input name="sportOrGame" placeholder="Basketball / MTG / Football" />
+      <input name="manufacturer" placeholder="Upper Deck" />
+      <div class="two">
+        <input name="yearStart" type="number" placeholder="2003" />
+        <input name="yearEnd" type="number" placeholder="2004" />
+      </div>
+      <textarea name="notes" placeholder="Notes"></textarea>
+      <button>Add Set</button>
+    </form>
+
+    <form id="cardForm" class="panel">
+      <h2>Add Owned Card</h2>
+      <input name="setName" placeholder="Set name" />
+      <input name="sportOrGame" placeholder="Basketball / MTG / etc." />
+      <div class="two">
+        <input name="cardNumber" placeholder="#16" />
+        <input name="playerOrSubject" placeholder="Michael Jordan" />
+      </div>
+      <div class="two">
+        <input name="condition" placeholder="Raw NM / PSA 9 / BGS 9.5" />
+        <input name="team" placeholder="Bulls" />
+      </div>
+      <div class="two">
+        <input name="serialNumber" type="number" placeholder="Serial #" />
+        <input name="serialMax" type="number" placeholder="Out of" />
+      </div>
+      <input name="photoUrl" placeholder="Photo URL for now" />
+      <input name="purchasePrice" placeholder="$48 shipped" />
+      <input name="storageLocation" placeholder="Box / shelf / vault location" />
+      <textarea name="notes" placeholder="Swatch color, pop notes, flaws, etc."></textarea>
+      <button>Add Card</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <h2>Owned Cards</h2>
+      <button id="refreshCards">Refresh</button>
+    </div>
+    <input id="cardFilter" placeholder="Filter by player, set, number, condition..." />
+    <div id="cards" class="cards"></div>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <h2>Sets</h2>
+      <button id="refreshSets">Refresh</button>
+    </div>
+    <div id="sets" class="sets"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

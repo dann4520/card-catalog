@@ -1,0 +1,31 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# AWS/SAM local build artifacts
+.aws-sam/
+samconfig.toml
+
+# Local env/config
+.env
+env.local.json
+*.local.json
+
+# Logs
+*.log
