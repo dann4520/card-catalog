@@ -30,10 +30,13 @@ tasks.test {
 tasks.shadowJar {
     archiveClassifier.set("all")
 
+    // Keep the fat JAR deterministic and avoid some META-INF/ZIP edge cases
+    // seen with older Shadow versions and newer Gradle/JDK combinations.
     isZip64 = true
     isPreserveFileTimestamps = false
     isReproducibleFileOrder = true
     duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.EXCLUDE
 
+    // These signature files are invalid once dependencies are unpacked into a fat JAR.
     exclude("META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 }

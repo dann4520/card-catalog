@@ -178,3 +178,43 @@ http://localhost:5173
 
 7. **Sports-card-specific fields**
    - Add grader, grade, cert number, parallel, insert set, memorabilia type, swatch color, autograph type, population notes.
+
+
+## Version 2 behavior: set-first cataloging
+
+This version treats a set as the parent object:
+
+1. Create a set first, such as `2003-04 Upper Deck Finite`.
+2. Add checklist cards to that set, such as card `16` / `Michael Jordan`.
+3. Add owned copies only from the existing checklist.
+
+The backend now validates that an owned card's `setId` exists and that its `cardNumber` exists in that set's checklist. If either one is missing, the API returns a `400` error instead of saving a loose/unrelated card.
+
+Useful API routes:
+
+- `GET /health`
+- `GET /sets`
+- `POST /sets`
+- `GET /sets/{setId}`
+- `GET /sets/{setId}/checklist`
+- `POST /sets/{setId}/checklist`
+- `GET /cards`
+- `POST /cards`
+- `GET /cards/{id}`
+- `PUT /cards/{id}`
+- `DELETE /cards/{id}`
+
+Example owned-card payload:
+
+```json
+{
+  "setId": "existing-set-id",
+  "cardNumber": "16",
+  "condition": "PSA 9",
+  "serialNumber": 123,
+  "photoUrl": "https://example.com/front.jpg",
+  "storageLocation": "Finite Box 1"
+}
+```
+
+The server fills in set name, sport/game, player/subject, team, subset, and default serial max from the checklist record.
