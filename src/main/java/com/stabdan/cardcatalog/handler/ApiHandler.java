@@ -31,10 +31,16 @@ public class ApiHandler implements RequestHandler<APIGatewayV2HTTPEvent, APIGate
             String path = normalize(event.getRawPath());
 
             if ("OPTIONS".equals(method)) return response(204, "");
+            if ("GET".equals(method) && "/".equals(path)) return json(200, Map.of("message", "Card Catalog API", "health", "/health"));
             if ("GET".equals(method) && "/health".equals(path)) return json(200, Map.of("status", "ok"));
 
             if ("GET".equals(method) && "/sets".equals(path)) return json(200, repository.listSets());
             if ("POST".equals(method) && "/sets".equals(path)) return json(201, repository.saveSet(Json.parse(event.getBody(), CardSet.class)));
+
+            if ("GET".equals(method) && path.startsWith("/sets/") && !path.endsWith("/checklist")) {
+                String setId = path.substring("/sets/".length());
+                return repository.getSet(setId).map(set -> json(200, set)).orElseGet(() -> json(404, new ApiError("Set not found")));
+            }
 
             if ("GET".equals(method) && path.startsWith("/sets/") && path.endsWith("/checklist")) {
                 String setId = between(path, "/sets/", "/checklist");

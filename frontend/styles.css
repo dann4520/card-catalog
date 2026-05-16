@@ -17,3 +17,6 @@ button { width: auto; cursor: pointer; background: #111827; color: white; border
 .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; background: #eef2ff; margin-right: 4px; font-size: .85rem; }
 .danger { background: #7f1d1d; border-color: #7f1d1d; }
 @media (max-width: 640px) { .card-item, .set-item { grid-template-columns: 1fr; } .thumb { width: 120px; height: 168px; } }
+select { box-sizing: border-box; width: 100%; padding: 10px; margin: 6px 0 10px; border-radius: 8px; border: 1px solid #c9ccd1; font: inherit; background: white; }
+.card-item.compact { grid-template-columns: 90px 1fr; }
+.card-number { font-weight: 700; font-size: 1.15rem; padding-top: 4px; }

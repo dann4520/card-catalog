@@ -9,7 +9,7 @@
 <body>
 <header>
   <h1>Card Catalog</h1>
-  <p>Personal trading card inventory + set checklist starter.</p>
+  <p>Personal trading card inventory built around sets, checklists, and owned copies.</p>
 </header>
 
 <main>
@@ -24,7 +24,7 @@
 
   <section class="grid">
     <form id="setForm" class="panel">
-      <h2>Add Set</h2>
+      <h2>1. Add Set</h2>
       <input name="name" placeholder="2003-04 Upper Deck Finite" required />
       <input name="sportOrGame" placeholder="Basketball / MTG / Football" />
       <input name="manufacturer" placeholder="Upper Deck" />
@@ -36,28 +36,69 @@
       <button>Add Set</button>
     </form>
 
-    <form id="cardForm" class="panel">
-      <h2>Add Owned Card</h2>
-      <input name="setName" placeholder="Set name" />
-      <input name="sportOrGame" placeholder="Basketball / MTG / etc." />
+    <form id="checklistForm" class="panel">
+      <h2>2. Add Checklist Card</h2>
+      <label>Set
+        <select id="checklistSetId" name="setId" required></select>
+      </label>
       <div class="two">
-        <input name="cardNumber" placeholder="#16" />
+        <input name="cardNumber" placeholder="16" required />
         <input name="playerOrSubject" placeholder="Michael Jordan" />
       </div>
       <div class="two">
-        <input name="condition" placeholder="Raw NM / PSA 9 / BGS 9.5" />
         <input name="team" placeholder="Bulls" />
+        <input name="subset" placeholder="Finite / Gold / Jersey" />
+      </div>
+      <input name="serialMax" type="number" placeholder="Out of, if normally serialized" />
+      <textarea name="notes" placeholder="Checklist notes"></textarea>
+      <button>Add Checklist Card</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>3. Add Owned Copy</h2>
+    <p class="muted">Owned cards must point to a set and a checklist card already entered above.</p>
+    <form id="cardForm">
+      <div class="two">
+        <label>Set
+          <select id="ownedSetId" name="setId" required></select>
+        </label>
+        <label>Checklist Card
+          <select id="ownedCardNumber" name="cardNumber" required></select>
+        </label>
       </div>
       <div class="two">
-        <input name="serialNumber" type="number" placeholder="Serial #" />
-        <input name="serialMax" type="number" placeholder="Out of" />
+        <input name="condition" placeholder="Raw NM / PSA 9 / BGS 9.5" />
+        <input name="photoUrl" placeholder="Photo URL for now" />
       </div>
-      <input name="photoUrl" placeholder="Photo URL for now" />
-      <input name="purchasePrice" placeholder="$48 shipped" />
-      <input name="storageLocation" placeholder="Box / shelf / vault location" />
+      <div class="two">
+        <input name="serialNumber" type="number" placeholder="Actual serial #" />
+        <input name="serialMax" type="number" placeholder="Override out of, optional" />
+      </div>
+      <div class="two">
+        <input name="purchasePrice" placeholder="$48 shipped" />
+        <input name="storageLocation" placeholder="Box / shelf / vault location" />
+      </div>
+      <div class="two">
+        <input name="acquiredFrom" placeholder="eBay / COMC / Burbank" />
+        <input name="acquiredDate" placeholder="2026-05-14" />
+      </div>
       <textarea name="notes" placeholder="Swatch color, pop notes, flaws, etc."></textarea>
-      <button>Add Card</button>
+      <button>Add Owned Card</button>
     </form>
+  </section>
+
+  <section class="panel">
+    <div class="row">
+      <h2>Sets & Checklists</h2>
+      <button id="refreshSets">Refresh</button>
+    </div>
+    <label>View checklist for set
+      <select id="viewSetId"></select>
+    </label>
+    <div id="sets" class="sets"></div>
+    <h3>Checklist</h3>
+    <div id="checklist" class="cards"></div>
   </section>
 
   <section class="panel">
@@ -67,14 +108,6 @@
     </div>
     <input id="cardFilter" placeholder="Filter by player, set, number, condition..." />
     <div id="cards" class="cards"></div>
-  </section>
-
-  <section class="panel">
-    <div class="row">
-      <h2>Sets</h2>
-      <button id="refreshSets">Refresh</button>
-    </div>
-    <div id="sets" class="sets"></div>
   </section>
 </main>
 
