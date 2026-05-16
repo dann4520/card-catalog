@@ -9,6 +9,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClientBuilder;
 
 import java.net.URI;
 import java.time.Instant;
@@ -30,7 +31,7 @@ public class CardCatalogRepository {
 
     private static DynamoDbClient createDynamoClient() {
         String endpoint = System.getenv("DYNAMODB_ENDPOINT");
-        DynamoDbClient.Builder builder = DynamoDbClient.builder()
+        DynamoDbClientBuilder builder = DynamoDbClient.builder()
                 .region(Region.of(System.getenv().getOrDefault("AWS_REGION", "us-east-1")));
 
         if (!blank(endpoint)) {
